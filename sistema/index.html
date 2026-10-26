@@ -5,7 +5,7 @@
     <title>Cafetería UTEC</title>
 </head>
 <body>
-    <h1>Cafetería UTEC — Pedidos (FIFO)</h1>
+    <h2>Cafetería UTEC — Pedidos (FIFO)</h2>
 
     <input type="text" id="cliente" placeholder="Cliente">
     <input type="text" id="producto" placeholder="Producto">
@@ -19,15 +19,12 @@
 
     <hr>
 
-    <!-- 2. Preparar Siguiente -->
     <button onclick="preparar()" style="background: #ffc107;">🍳 Preparar Siguiente Pedido</button>
 
-    <!-- 3. Consultar Siguiente -->
     <p><b>Próximo en atender:</b> <span id="proximo">Ninguno</span></p>
 
     <hr>
 
-    <!-- 4 y 6. Filas y Cancelación -->
     <h3>Fila Prioritaria</h3>
     <ol id="listaPrio"></ol>
 
@@ -36,7 +33,6 @@
 
     <hr>
 
-    <!-- 5. Estadísticas -->
     <h3>Estadísticas</h3>
     <p id="stats">Sin datos registrados.</p>
 
@@ -80,10 +76,8 @@
         }
 
         function actualizar() {
-            // Próximo
             let sig = filaPrio[0] || filaNorm[0];
             document.getElementById("proximo").textContent = sig ? `#${sig.id} -${sig.cliente} (${sig.cantidad}x${sig.producto})` : "Ninguno";
 
-            // Listas
             let ulPrio = document.getElementById("listaPrio");
-            ulPrio.innerHTML = filaPrio.map(p => `<li>#${p.id}${p.cliente
+            ulPrio.innerHTML = filaPrio.map(p => `<li>#${p.id}${p.cliente} - ${p.producto} (${p.tiempo
