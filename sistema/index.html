@@ -77,7 +77,22 @@
 
         function actualizar() {
             let sig = filaPrio[0] || filaNorm[0];
-            document.getElementById("proximo").textContent = sig ? `#${sig.id} -${sig.cliente} (${sig.cantidad}x${sig.producto})` : "Ninguno";
+            document.getElementById("proximo").textContent = sig ? `#${sig.id} - ${sig.cliente} (${sig.cantidad}x ${sig.producto})` : "Ninguno";
 
             let ulPrio = document.getElementById("listaPrio");
-            ulPrio.innerHTML = filaPrio.map(p => `<li>#${p.id}${p.cliente} - ${p.producto} (${p.tiempo
+            ulPrio.innerHTML = filaPrio.map(p => `<li>#${p.id} ${p.cliente} - ${p.producto} (${p.tiempo}m) <button onclick="cancelar(${p.id}, 'Prioritario')">❌</button></li>`).join("");
+
+            let ulNorm = document.getElementById("listaNorm");
+            ulNorm.innerHTML = filaNorm.map(p => `<li>#${p.id} ${p.cliente} - ${p.producto} (${p.tiempo}m) <button onclick="cancelar(${p.id}, 'Normal')">❌</button></li>`).join("");
+
+            let tot = historial.length;
+            if (tot === 0) return;
+            let esp = filaPrio.reduce((a,b)=>a+b.tiempo,0) + filaNorm.reduce((a,b)=>a+b.tiempo,0);
+            let prom = (historial.reduce((a,b)=>a+b.tiempo,0) / tot).toFixed(1);
+            let pctP = ((historial.filter(p=>p.tipo==="Prioritario").length / tot)*100).toFixed(1);
+
+            document.getElementById("stats").textContent = `Registrados: ${tot} | Espera actual: ${esp} min | Promedio: ${prom} min | ${pctP}% Prioritarios`;
+        }
+    </script>
+</body>
+</html>
