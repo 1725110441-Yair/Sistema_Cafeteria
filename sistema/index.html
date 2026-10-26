@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cafetería UTEC</title>
+</head>
+<body>
+    <h1>Cafetería UTEC — Pedidos (FIFO)</h1>
+
+    <input type="text" id="cliente" placeholder="Cliente">
+    <input type="text" id="producto" placeholder="Producto">
+    <input type="number" id="cantidad" value="1" placeholder="Cant.">
+    <select id="tipo">
+        <option value="Normal">Normal</option>
+        <option value="Prioritario">Prioritario</option>
+    </select>
+    <input type="number" id="tiempo" value="5" placeholder="Minutos">
+    <button onclick="registrar()">Registrar</button>
+
+    <hr>
+
+    <!-- 2. Preparar Siguiente -->
+    <button onclick="preparar()" style="background: #ffc107;">🍳 Preparar Siguiente Pedido</button>
+
+    <!-- 3. Consultar Siguiente -->
+    <p><b>Próximo en atender:</b> <span id="proximo">Ninguno</span></p>
+
+    <hr>
+
+    <!-- 4 y 6. Filas y Cancelación -->
+    <h3>Fila Prioritaria</h3>
+    <ol id="listaPrio"></ol>
+
+    <h3>Fila Normal</h3>
+    <ol id="listaNorm"></ol>
+
+    <hr>
+
+    <!-- 5. Estadísticas -->
+    <h3>Estadísticas</h3>
+    <p id="stats">Sin datos registrados.</p>
+
+    <script>
+        let filaPrio = [];
+        let filaNorm = [];
+        let historial = [];
+        let id = 1;
+
+        function registrar() {
+            let cli = document.getElementById("cliente").value.trim();
+            let prod = document.getElementById("producto").value.trim();
+            let cant = parseInt(document.getElementById("cantidad").value);
+            let tipo = document.getElementById("tipo").value;
+            let t = parseInt(document.getElementById("tiempo").value);
+
+            if (!cli || !prod) return alert("Completa cliente y producto");
+
+            let p = { id: id++, cliente: cli, producto: prod, cantidad: cant, tipo: tipo, tiempo: t };
+            historial.push(p);
+
+            if (tipo === "Prioritario") filaPrio.push(p);
+            else filaNorm.push(p);
+
+            document.getElementById("cliente").value = "";
+            document.getElementById("producto").value = "";
+            actualizar();
+        }
+
+        function preparar() {
+            if (filaPrio.length > 0) alert(`Atendiendo Prioritario: #${filaPrio.shift().id}`);
+            else if (filaNorm.length > 0) alert(`Atendiendo Normal: #${filaNorm.shift().id}`);
+            else alert("No hay pedidos");
+            actualizar();
+        }
+
+        function cancelar(idPedido, tipo) {
+            if (tipo === 'Prioritario') filaPrio = filaPrio.filter(p => p.id !== idPedido);
+            else filaNorm = filaNorm.filter(p => p.id !== idPedido);
+            actualizar();
+        }
+
+        function actualizar() {
+            // Próximo
+            let sig = filaPrio[0] || filaNorm[0];
+            document.getElementById("proximo").textContent = sig ? `#${sig.id} -${sig.cliente} (${sig.cantidad}x${sig.producto})` : "Ninguno";
+
+            // Listas
+            let ulPrio = document.getElementById("listaPrio");
+            ulPrio.innerHTML = filaPrio.map(p => `<li>#${p.id}${p.cliente
