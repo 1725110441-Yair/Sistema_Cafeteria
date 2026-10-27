@@ -1,0 +1,52 @@
+$def with (total, pendientes, preparados, cancelados, prio, norm)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas</title>
+    <link rel="stylesheet" href="/static/estilos.css">
+</head>
+<body>
+
+    <h1>Estadísticas de Pedidos</h1>
+    <nav>
+        <a href="/">Regresar</a>
+    </nav>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Métrica</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total de pedidos recibidos</td>
+                <td><strong>$total</strong></td>
+            </tr>
+            <tr>
+                <td>Pedidos pendientes en total</td>
+                <td><strong>$pendientes</strong></td>
+            </tr>
+            <tr>
+                <td>Pedidos en fila prioritaria</td>
+                <td>$prio</td>
+            </tr>
+            <tr>
+                <td>Pedidos en fila normal</td>
+                <td>$norm</td>
+            </tr>
+            <tr>
+                <td>Pedidos preparados</td>
+                <td>$preparados</td>
+            </tr>
+            <tr>
+                <td>Pedidos cancelados</td>
+                <td>$cancelados</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

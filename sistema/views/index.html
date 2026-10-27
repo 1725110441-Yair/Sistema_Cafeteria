@@ -4,7 +4,7 @@ $def with (prioritarios, normales, siguiente)
 <head>
     <meta charset="UTF-8">
     <title>Cafetería UTEC</title>
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="/static/estilos.css">
 </head>
 <body>
 
@@ -33,56 +33,68 @@ $def with (prioritarios, normales, siguiente)
 
     <h2>Fila Prioritaria (Atención Preferente)</h2>
     <table>
-        <tr>
-            <th>ID</th>
-            <th>Cliente</th>
-            <th>Producto</th>
-            <th>Cant.</th>
-            <th>Tiempo</th>
-            <th>Acción</th>
-        </tr>
-        $if len(prioritarios) == 0:
-            <tr><td colspan="6">No hay pedidos prioritarios.</td></tr>
-        $for p in prioritarios:
+        <thead>
             <tr>
-                <td>$p['id']</td>
-                <td>$p['cliente']</td>
-                <td>$p['producto']</td>
-                <td>$p['cantidad']</td>
-                <td>$p['tiempo'] min</td>
-                <td>
-                    <form method="POST" action="/cancelar/$p['id']">
-                        <button type="submit" class="btn btn-rojo">Cancelar</button>
-                    </form>
-                </td>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Producto</th>
+                <th>Cant.</th>
+                <th>Tiempo</th>
+                <th>Acción</th>
             </tr>
+        </thead>
+        <tbody>
+            $if len(prioritarios) == 0:
+                <tr>
+                    <td colspan="6">No hay pedidos prioritarios.</td>
+                </tr>
+            $for p in prioritarios:
+                <tr>
+                    <td>#$p['id']</td>
+                    <td>$p['cliente']</td>
+                    <td>$p['producto']</td>
+                    <td>$p['cantidad']</td>
+                    <td>$p['tiempo'] min</td>
+                    <td>
+                        <form method="POST" action="/cancelar/$p['id']">
+                            <button type="submit" class="btn btn-rojo">Cancelar</button>
+                        </form>
+                    </td>
+                </tr>
+        </tbody>
     </table>
 
     <h2>Fila Normal</h2>
     <table>
-        <tr>
-            <th>ID</th>
-            <th>Cliente</th>
-            <th>Producto</th>
-            <th>Cant.</th>
-            <th>Tiempo</th>
-            <th>Acción</th>
-        </tr>
-        $if len(normales) == 0:
-            <tr><td colspan="6">No hay pedidos normales.</td></tr>
-        $for n in normales:
+        <thead>
             <tr>
-                <td>$n['id']</td>
-                <td>$n['cliente']</td>
-                <td>$n['producto']</td>
-                <td>$n['cantidad']</td>
-                <td>$n['tiempo'] min</td>
-                <td>
-                    <form method="POST" action="/cancelar/$n['id']">
-                        <button type="submit" class="btn btn-rojo">Cancelar</button>
-                    </form>
-                </td>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Producto</th>
+                <th>Cant.</th>
+                <th>Tiempo</th>
+                <th>Acción</th>
             </tr>
+        </thead>
+        <tbody>
+            $if len(normales) == 0:
+                <tr>
+                    <td colspan="6">No hay pedidos normales.</td>
+                </tr>
+            $for n in normales:
+                <tr>
+                    <td>#$n['id']</td>
+                    <td>$n['cliente']</td>
+                    <td>$n['producto']</td>
+                    <td>$n['cantidad']</td>
+                    <td>$n['tiempo'] min</td>
+                    <td>
+                        <form method="POST" action="/cancelar/$n['id']">
+                            <button type="submit" class="btn btn-rojo">Cancelar</button>
+                        </form>
+                    </td>
+                </tr>
+        </tbody>
     </table>
 
 </body>

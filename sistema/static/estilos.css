@@ -2,12 +2,12 @@ body {
     font-family: Arial, sans-serif;
     margin: 30px auto;
     max-width: 800px;
-    background-color: #f4f6f8;
+    background-color: #f8f9fa;
     color: #333;
 }
 
 h1, h2 {
-    color: #8b0000;
+    color: #b22222;
 }
 
 nav {
@@ -20,19 +20,19 @@ nav a {
     margin-right: 15px;
     text-decoration: none;
     font-weight: bold;
-    color: #0056b3;
+    color: #007bff;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
+    background: #fff;
     margin-bottom: 25px;
 }
 
 th, td {
-    border: 1px solid #ccc;
-    padding: 8px 12px;
+    border: 1px solid #ddd;
+    padding: 10px;
     text-align: left;
 }
 
@@ -42,10 +42,10 @@ th {
 
 .turno-box {
     background-color: #fff3cd;
-    border: 2px solid #ffeeba;
+    border: 1px solid #ffeeba;
     padding: 15px;
     margin-bottom: 25px;
-    border-radius: 5px;
+    border-radius: 4px;
 }
 
 .btn {
@@ -53,25 +53,24 @@ th {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    text-decoration: none;
+    font-size: 14px;
 }
 
 .btn-verde { background-color: #28a745; color: white; }
 .btn-rojo  { background-color: #dc3545; color: white; }
-.btn-azul  { background-color: #007bff; color: white; }
 
 .campo {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 .campo label {
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
     font-weight: bold;
 }
 
 .campo input, .campo select {
     width: 100%;
-    padding: 7px;
+    padding: 8px;
     box-sizing: border-box;
 }

@@ -3,10 +3,11 @@ import web
 render = web.template.render('views')
 
 fila_prioritaria = []
-fila_nromal = []
+fila_normal = []
 pedidos_preparados = 0
 pedidos_cancelados = 0
 contador_id = 1
+
 
 def obtener_siguiente():
     if len(fila_prioritaria) > 0:
@@ -30,7 +31,7 @@ class RegistrarPedido:
         global contador_id
         datos = web.input()
 
-        nuevo_pedido = {
+        nuevo = {
             'id': contador_id,
             'cliente': datos.cliente,
             'producto': datos.producto,
@@ -41,9 +42,9 @@ class RegistrarPedido:
         contador_id += 1
 
         if datos.tipo == 'Prioritario':
-            fila_prioritaria.append(nuevo_pedido)
+            fila_prioritaria.append(nuevo)
         else:
-            fila_normal.append(nuevo_pedido)
+            fila_normal.append(nuevo)
 
         raise web.seeother('/')
 
