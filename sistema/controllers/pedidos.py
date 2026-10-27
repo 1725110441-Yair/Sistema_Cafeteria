@@ -17,14 +17,12 @@ def obtener_siguiente():
 
 
 class ListaPedidos:
-    # 4. Mostrar pedidos pendientes y 3. Consultar siguiente pedido
     def GET(self):
         siguiente = obtener_siguiente()
         return render.index(fila_prioritaria, fila_normal, siguiente)
 
 
 class RegistrarPedido:
-    # 1. Registrar pedido
     def GET(self):
         return render.registrar()
 
@@ -42,7 +40,6 @@ class RegistrarPedido:
         }
         contador_id += 1
 
-        # Encolar según el tipo (FIFO al final de cada lista)
         if datos.tipo == 'Prioritario':
             fila_prioritaria.append(nuevo_pedido)
         else:
@@ -52,11 +49,10 @@ class RegistrarPedido:
 
 
 class PrepararPedido:
-    # 2. Preparar el siguiente pedido
     def POST(self):
         global pedidos_preparados
         if len(fila_prioritaria) > 0:
-            fila_prioritaria.pop(0)  # Saca el primero (FIFO)
+            fila_prioritaria.pop(0)
             pedidos_preparados += 1
         elif len(fila_normal) > 0:
             fila_normal.pop(0)
@@ -66,19 +62,16 @@ class PrepararPedido:
 
 
 class CancelarPedido:
-    # 6. Cancelar pedido por ID
     def POST(self, id_pedido):
         global pedidos_cancelados
         id_num = int(id_pedido)
 
-        # Buscar y eliminar de prioritarios
         for p in fila_prioritaria:
             if p['id'] == id_num:
                 fila_prioritaria.remove(p)
                 pedidos_cancelados += 1
                 raise web.seeother('/')
 
-        # Buscar y eliminar de normales
         for p in fila_normal:
             if p['id'] == id_num:
                 fila_normal.remove(p)
