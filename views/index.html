@@ -19,7 +19,7 @@ $def with (prioritarios, normales, siguiente)
         <h2>Siguiente Pedido en Turno</h2>
         $if siguiente:
             <p>
-                <strong>#$siguiente['id']</strong> - Cliente: <strong>$siguiente['cliente']</strong> | 
+                <strong>Pedido N° $siguiente['id']</strong> - Cliente: <strong>$siguiente['cliente']</strong> | 
                 $siguiente['cantidad']x $siguiente['producto'] | 
                 Tipo: <strong>$siguiente['tipo']</strong> | 
                 Tiempo: $siguiente['tiempo'] min
@@ -35,7 +35,7 @@ $def with (prioritarios, normales, siguiente)
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <th>N°</th>
                 <th>Cliente</th>
                 <th>Producto</th>
                 <th>Cant.</th>
@@ -50,7 +50,7 @@ $def with (prioritarios, normales, siguiente)
                 </tr>
             $for p in prioritarios:
                 <tr>
-                    <td>#$p['id']</td>
+                    <td>$p['id']</td>
                     <td>$p['cliente']</td>
                     <td>$p['producto']</td>
                     <td>$p['cantidad']</td>
@@ -68,7 +68,7 @@ $def with (prioritarios, normales, siguiente)
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <th>N°</th>
                 <th>Cliente</th>
                 <th>Producto</th>
                 <th>Cant.</th>
@@ -83,7 +83,7 @@ $def with (prioritarios, normales, siguiente)
                 </tr>
             $for n in normales:
                 <tr>
-                    <td>#$n['id']</td>
+                    <td>$n['id']</td>
                     <td>$n['cliente']</td>
                     <td>$n['producto']</td>
                     <td>$n['cantidad']</td>
