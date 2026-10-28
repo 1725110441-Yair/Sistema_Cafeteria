@@ -7,13 +7,13 @@ body {
 }
 
 h1, h2 {
-    color: #522323;
+    color: #b22222;
 }
 
 nav {
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid #692f2f;
 }
 
 nav a {
@@ -41,8 +41,8 @@ th {
 }
 
 .turno-box {
-    background-color: #fff3cd;
-    border: 1px solid #ffeeba;
+    background-color: #2adcfc;
+    border: 1px solid #fdeec1;
     padding: 15px;
     margin-bottom: 25px;
     border-radius: 4px;
