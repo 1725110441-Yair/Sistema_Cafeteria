@@ -3,98 +3,109 @@ $def with (prioritarios, normales, siguiente)
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Cafetería UTEC</title>
-    <link rel="stylesheet" href="/static/estilos.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafetería UTEC - Pedidos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body>
+<body class="bg-light">
 
-    <h1>Cafetería UTEC - Pedidos</h1>
-    <nav>
-        <a href="/registrar">Registrar Pedido</a>
-        <a href="/estadisticas">Estadísticas</a>
-    </nav>
+    <div class="container py-4">
+        
+        <h1 class="fw-bold mb-3" style="color: #8b0000;">Cafetería UTEC - Pedidos</h1>
 
-    <div class="turno-box">
-        <h2>Siguiente Pedido en Turno</h2>
-        $if siguiente:
-            <p>
-                <strong>Pedido N° $siguiente['id']</strong> - Cliente: <strong>$siguiente['cliente']</strong> | 
-                $siguiente['cantidad']x $siguiente['producto'] | 
-                Tipo: <strong>$siguiente['tipo']</strong> | 
-                Tiempo: $siguiente['tiempo'] min
-            </p>
-            <form method="POST" action="/preparar">
-                <button type="submit" class="btn btn-verde">Preparar este pedido</button>
-            </form>
-        $else:
-            <p>No hay pedidos pendientes por atender.</p>
+        <nav class="mb-3">
+            <a href="/registrar" class="text-primary text-decoration-none fw-semibold me-3">Registrar Pedido</a>
+            <a href="/estadisticas" class="text-primary text-decoration-none fw-semibold">Estadísticas</a>
+        </nav>
+        <hr style="border-top: 2px solid #8b0000; opacity: 0.6;" class="mb-4">
+
+        <div class="p-4 rounded-3 mb-5 shadow-sm text-dark" style="background-color: #00e1ff;">
+            <h3 class="fw-bold mb-3" style="color: #8b0000;">Siguiente Pedido en Turno</h3>
+            $if siguiente:
+                <p class="fs-5 mb-3">
+                    <strong>Pedido N° $siguiente['id']</strong> - Cliente: <strong>$siguiente['cliente']</strong> | 
+                    $siguiente['cantidad']x $siguiente['producto'] | 
+                    Tipo: <strong>$siguiente['tipo']</strong> | 
+                    Tiempo: $siguiente['tiempo'] min
+                </p>
+                <form method="POST" action="/preparar">
+                    <button type="submit" class="btn btn-success fw-semibold px-4">Preparar este pedido</button>
+                </form>
+            $else:
+                <p class="mb-0 fs-5">No hay pedidos pendientes por atender.</p>
+        </div>
+
+        <h4 class="fw-bold mb-3" style="color: #8b0000;">Fila Prioritaria (Atención Preferente)</h4>
+        <div class="table-responsive mb-5">
+            <table class="table table-bordered border-secondary-subtle align-middle bg-white shadow-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 10%;">N°</th>
+                        <th style="width: 25%;">Cliente</th>
+                        <th style="width: 25%;">Producto</th>
+                        <th style="width: 10%;">Cant.</th>
+                        <th style="width: 15%;">Tiempo</th>
+                        <th style="width: 15%;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    $if len(prioritarios) == 0:
+                        <tr>
+                            <td colspan="6" class="text-muted">No hay pedidos prioritarios.</td>
+                        </tr>
+                    $for p in prioritarios:
+                        <tr>
+                            <td>$p['id']</td>
+                            <td>$p['cliente']</td>
+                            <td>$p['producto']</td>
+                            <td>$p['cantidad']</td>
+                            <td>$p['tiempo'] min</td>
+                            <td>
+                                <form method="POST" action="/cancelar/$p['id']" class="m-0">
+                                    <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
+                                </form>
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 class="fw-bold mb-3" style="color: #8b0000;">Fila Normal</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered border-secondary-subtle align-middle bg-white shadow-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 10%;">N°</th>
+                        <th style="width: 25%;">Cliente</th>
+                        <th style="width: 25%;">Producto</th>
+                        <th style="width: 10%;">Cant.</th>
+                        <th style="width: 15%;">Tiempo</th>
+                        <th style="width: 15%;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    $if len(normales) == 0:
+                        <tr>
+                            <td colspan="6" class="text-muted">No hay pedidos normales.</td>
+                        </tr>
+                    $for n in normales:
+                        <tr>
+                            <td>$n['id']</td>
+                            <td>$n['cliente']</td>
+                            <td>$n['producto']</td>
+                            <td>$n['cantidad']</td>
+                            <td>$n['tiempo'] min</td>
+                            <td>
+                                <form method="POST" action="/cancelar/$n['id']" class="m-0">
+                                    <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
+                                </form>
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
-    <h2>Fila Prioritaria (Atención Preferente)</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>N°</th>
-                <th>Cliente</th>
-                <th>Producto</th>
-                <th>Cant.</th>
-                <th>Tiempo</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            $if len(prioritarios) == 0:
-                <tr>
-                    <td colspan="6">No hay pedidos prioritarios.</td>
-                </tr>
-            $for p in prioritarios:
-                <tr>
-                    <td>$p['id']</td>
-                    <td>$p['cliente']</td>
-                    <td>$p['producto']</td>
-                    <td>$p['cantidad']</td>
-                    <td>$p['tiempo'] min</td>
-                    <td>
-                        <form method="POST" action="/cancelar/$p['id']">
-                            <button type="submit" class="btn btn-rojo">Cancelar</button>
-                        </form>
-                    </td>
-                </tr>
-        </tbody>
-    </table>
-
-    <h2>Fila Normal</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>N°</th>
-                <th>Cliente</th>
-                <th>Producto</th>
-                <th>Cant.</th>
-                <th>Tiempo</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            $if len(normales) == 0:
-                <tr>
-                    <td colspan="6">No hay pedidos normales.</td>
-                </tr>
-            $for n in normales:
-                <tr>
-                    <td>$n['id']</td>
-                    <td>$n['cliente']</td>
-                    <td>$n['producto']</td>
-                    <td>$n['cantidad']</td>
-                    <td>$n['tiempo'] min</td>
-                    <td>
-                        <form method="POST" action="/cancelar/$n['id']">
-                            <button type="submit" class="btn btn-rojo">Cancelar</button>
-                        </form>
-                    </td>
-                </tr>
-        </tbody>
-    </table>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
